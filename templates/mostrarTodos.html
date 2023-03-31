@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mostrar todos los usuarios</title>
+</head>
+
+<body>
+<h1>Mostrar todos los usuarios</h1>
+<table>
+    <tr>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Email</th>
+        <th>Telefono</th>
+    </tr>
+{% for usuario in  usuarios   %}
+    <tr>
+        <td>{{usuario.nombre}}</td>
+        <td>{{usuario.apellido}}</td>
+    </tr>
+
+{% endfor %}
+    </table>
+</body>
+</html>

@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sneakers seekers</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css')}}">
+  </head>
+
+    <body>
+        <div class="container-fluid bg-primary">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+                    <div class="container-fluid">
+                      <a class="navbar-brand" href="{{url_for('index')}}"><img src="{{ url_for('static', filename='img/b.png')}}" style="height: 100px;"></a>
+                      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                      </button>
+                      <div class="collapse navbar-collapse" id="navbarColor01">
+                        <ul class="navbar-nav me-auto">
+                          <li class="nav-item">
+                            <a class="nav-link active" href="{{url_for('index')}}">Inicio
+                              <span class="visually-hidden">(current)</span>
+                            </a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="{{url_for('productos')}}">Productos</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="{{url_for('marcas')}}">Marcas</a>
+                          </li>
+                          <!--<li class="nav-item">
+                            <a class="nav-link" href="#">Sobre nosotros</a>
+                          </li>-->
+                          <li class="nav-item">
+                            <a class="nav-link" href="{{url_for('contacto')}}">Contacto</a>
+                          </li>
+                          <!--
+                          <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                            <div class="dropdown-menu">
+                              <a class="dropdown-item" href="#">Action</a>
+                              <a class="dropdown-item" href="#">Another action</a>
+                              <a class="dropdown-item" href="#">Something else here</a>
+                              <div class="dropdown-divider"></div>
+                              <a class="dropdown-item" href="#">Separated link</a>
+                            </div>
+                          </li>
+                        -->
+                        </ul>
+                        <form class="d-flex">
+                          <input class="form-control me-sm-2" type="search" placeholder="Busca algo">
+                          <button class="btn btn-secondary my-2 my-sm-0" type="submit">Buscar</button>
+                        </form>
+                      </div>
+                    </div>
+                  </nav>
+            </div>
+        </div>
+        
+
+        <div class="container-fluid ">
+            <div id="carouselExampleCaptions" class="carousel slide">
+                <div class="carousel-indicators">
+                  <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                  <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                  <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <img src="{{ url_for('static', filename='img/cuno.jpg')}}" class="d-block w-100" alt="...">
+                    <div class="carousel-caption d-none d-md-block text-black fw-bold">
+                      <h5>Moda</h5>
+                      <p>Encuantra lo mejor de la moda en el ámbito de moda.</p>
+                    </div>
+                  </div>
+                  <div class="carousel-item">
+                    <img src="{{ url_for('static', filename='img/cdos.jpg')}}" class="d-block w-100" alt="...">
+                    <div class="carousel-caption d-none d-md-block text-black fw-bold">
+                      <h5>Deportivos</h5>
+                      <p>Lo mejor para practicar deporte casual o profesional.</p>
+                    </div>
+                  </div>
+                  <div class="carousel-item">
+                    <img src=".{{ url_for('static', filename='img/ctres.jpg')}}" class="d-block w-100" alt="...">
+                    <div class="carousel-caption d-none d-md-block text-black fw-bold">
+                      <h5>Casuales</h5>
+                      <p>Tenis casuales variados.</p>
+                    </div>
+                  </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Anterior</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Siguiente</span>
+                </button>
+              </div>
+        </div>
+
+
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="text-center text-black">
+                <h1 class="display-4 fw-bolder">Compra con estilo</h1>
+                <p class="lead fw-normal text-50 mb-0">Utiliza los medios electrónicos</p>
+            </div>
+        </div>
+
+
+        <div class="container px-4 px-lg-5 my-5 bg-light">
+            <p class="lead fw-normal text-50 text-center pb-5">
+                Esta tienda de sneakers puede ofrecer una amplia variedad de productos relacionados con los zapatos deportivos, 
+                que van desde las últimas tendencias en zapatillas hasta productos de edición limitada o colecciones especiales. 
+            </p>
+            <p class="lead fw-normal text-50 text-center pb-1">
+                Algunos de los productos que ofrece esta tienda de sneakers son:
+            </p>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    Zapatillas deportivas: Amplia variedad de zapatillas deportivas, desde los modelos clásicos hasta los más modernos. También pueden ofrecer zapatillas para diferentes deportes, como baloncesto, fútbol, correr, entre otros.
+                </li>
+                <li class="list-group-item">
+                    Ediciones limitadas: Las ediciones limitadas son una parte integral de la cultura de las zapatillas. Esta tienda tiene una selección de zapatillas de edición limitada, que son altamente valoradas por los coleccionistas.
+                </li>
+                <li class="list-group-item">
+                    Accesorios: Accesorios para complementar las zapatillas, como calcetines, gorras, mochilas, llaveros y más.
+                </li>
+                <li class="list-group-item">
+                    Limpieza y cuidado: Productos para el cuidado de las zapatillas, como limpiadores, protectores y otros productos de mantenimiento para ayudar a mantener las zapatillas en perfecto estado.    
+                </li>
+            </ul>  
+            <p class="lead fw-normal text-50 text-center"></p>
+            <p class="lead fw-normal text-50 text-center">
+                En resumen, esta tienda de sneakers puede ofrecer una variedad de productos para los amantes de las zapatillas, desde zapatillas deportivas clásicas hasta ediciones limitadas y accesorios para complementar el estilo personal de cada cliente.
+            </p> 
+        </div>
+
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="text-center text-black">
+                <h1 class="display-4 fw-bolder">¡Compra ahora!</h1>                <p class="lead fw-normal text-50 mb-0">Ve nuestros productos en la sección de <a class="link" href="{{url_for('productos')}}">Productos</a></p>
+
+            </div>
+        </div>
+
+        <footer class="py-5 bg-dark">
+            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; SneakersSeekers 2023</p></div>
+        </footer>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    </body>
+</html>
