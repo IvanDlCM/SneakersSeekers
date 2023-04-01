@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Sneakers seekers</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css')}}">
+    <link rel="icon" href="{{ url_for('static', filename='img/b.png')}}" type="image/png">
   </head>
 
     <body>
@@ -34,18 +35,6 @@
                           <li class="nav-item">
                             <a class="nav-link" href="{{url_for('contacto')}}">Contacto</a>
                           </li>
-                          <!--
-                          <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item" href="#">Action</a>
-                              <a class="dropdown-item" href="#">Another action</a>
-                              <a class="dropdown-item" href="#">Something else here</a>
-                              <div class="dropdown-divider"></div>
-                              <a class="dropdown-item" href="#">Separated link</a>
-                            </div>
-                          </li>
-                        -->
                         </ul>
                         <form class="d-flex">
                           <input class="form-control me-sm-2" type="search" placeholder="Busca algo">
@@ -57,7 +46,7 @@
             </div>
         </div>
 
-        <header class="bg-dark py-5" style="background-image: url(./img/ss.png) ;">
+        <header class="bg-dark py-5" style="background-image: url(../static/img/ss.png);">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="text-center text-white">
                     <h1 class="display-4 fw-bolder">Las mejores ofertas</h1>
@@ -69,133 +58,147 @@
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                    {% for producto in productos %}
                     <div class="col mb-5">
                         <div class="card h-100">
                             <!-- Product image-->
-                            <img class="card-img-top" src="{{ url_for('static', filename='img/puno.jpg')}}" alt="..." />
+                            <img class="card-img-top" src="{{ url_for('static', filename='img/' + producto.imagen) }}" alt="..." />
                             <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">
                                     <!-- Product name-->
-                                    <h5 class="fw-bolder">Converse Chuck Taylor All Star</h5>
+                                    <h5 class="fw-bolder">{{ producto.nombre }}</h5>
                                     <!-- Product price-->
-                                    $1300.00
+                                    ${{ producto.precio }}
                                 </div>
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{{url_for('productos', id=1)}}">Ver producto</a></div>
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{{ url_for('producto', id=producto.id) }}">Ver producto</a></div>
+                                <br>
+                                <div class="row gx-1 gx-lg-2 row-cols-2 justify-content-center">
+                                    <div class="col mb-5 text-center">
+                                      <button class="btn btn-info mt-auto" id="btn-edit{{producto.id}}" data-bs-toggle="modal" data-bs-target="#modal{{producto.id}}">Editar</button>
+                                    </div>
+                                    <!-- modal actualizar-->
+                                    <div class="modal fade" id="modal{{producto.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                      <div class="modal-dialog">
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">{{producto.username}}</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                          </div>
+                                          <div class="modal-body">
+                                            <form id="editForm" method="POST" action="{{ url_for('actualizar', id=producto.id) }}">
+                                              <!-- ID input-->
+                                              <input type="hidden" name="id" value="{{ producto.id }}">
+                                              <!-- Nombre input-->
+                                              <div class="form-floating mb-3">
+                                                  <input class="form-control" id="nombre" name="nombre" type="text" placeholder="Ingresa el nombre..." data-sb-validations="required" value="{{ producto.nombre }}"/>
+                                                  <label for="nombre">Nombre del producto</label>
+                                                  <div class="invalid-feedback" data-sb-feedback="nombre:required">El nombre es requerido.</div>
+                                              </div>
+                                              <!-- Desc input-->
+                                              <div class="form-floating mb-3">
+                                                  <textarea class="form-control" id="descripcion" name="descripcion" type="text" placeholder="Escribe la descripción aqui..." style="height: 10rem" data-sb-validations="required" >{{ producto.descripcion }}</textarea>
+                                                  <label for="descripcion">Escribe la descripción </label>
+                                                  <div class="invalid-feedback" data-sb-feedback="descripcion:required">La descripción es requerida.</div>
+                                              </div>
+                                              <!-- Precio input-->
+                                              <div class="form-floating mb-3">
+                                                  <input class="form-control" id="precio" name="precio" type="number" placeholder="5000" data-sb-validations="required" value="{{ producto.precio }}"/>
+                                                  <label for="precio">Precio</label>
+                                                  <div class="invalid-feedback" data-sb-feedback="precio:required">Precio requerido.</div>
+                                              </div>
+                                              <!-- Imagen input-->
+                                              <div class="form-floating mb-3">
+                                                  <input class="form-control" id="imagen" name="imagen" type="text" placeholder="imagen1.jpg" data-sb-validations="required" value="{{ producto.imagen }}"/>
+                                                  <label for="imagen">Nombre de la imagen del producto</label>
+                                                  <div class="invalid-feedback" data-sb-feedback="imagen:required">El nombre de la imagen es requerido.</div>
+                                              </div>
+                                          </div>
+                                          <div class="modal-footer">
+                                            <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                                          </div>
+                                          </form>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="col mb-5 text-center">
+                                        <form method="POST" action="{{ url_for('eliminar_producto', id=producto.id) }}">
+                                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    {% endfor %}
                     <div class="col mb-5">
                         <div class="card h-100">
                             <!-- Product image-->
-                            <img class="card-img-top" src="{{ url_for('static', filename='img/pdos.jpg')}}" alt="..." />
+                            <img class="card-img-top" src="{{ url_for('static', filename='img/agregar.jpg') }}" alt="..." />
                             <!-- Product details-->
                             <div class="card-body p-4">
-                                <div class="text-center">
+                                <div class="text-center mt-4">
                                     <!-- Product name-->
-                                    <h5 class="fw-bolder">Adidas Forum Mid White Royal Blue</h5>
+                                    <h5 class="fw-bolder">Agrega nuevos productos</h5>
                                     <!-- Product price-->
-                                    $3200.00
                                 </div>
                             </div>
                             <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{{ url_for('productos', id=1) }}">Ver producto</a></div>
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">   
+                                <div class="text-center"><button class="btn btn-success mt-auto" id="btn-add" data-bs-toggle="modal" data-bs-target="#modaladd">Agregar</button></div>
                             </div>
                         </div>
                     </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="{{ url_for('static', filename='img/ptres.jpg')}}" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">Adidas Advantage LifeStyle</h5>
-                                    <!-- Product price-->
-                                    $1500.00
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Ver producto</a></div>
-                            </div>
+                    <!-- modal de agregar-->
+                    <div class="modal fade" id="modaladd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Agrega un producto</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            <form id="newForm" method="POST" action="{{ url_for('nuevo_producto') }}">
+                              <!-- Nombre input-->
+                              <div class="form-floating mb-3">
+                                  <input class="form-control" id="nombre" name="nombre" type="text" placeholder="Ingresa el nombre..." data-sb-validations="required"/>
+                                  <label for="nombre">Nombre del producto</label>
+                                  <div class="invalid-feedback" data-sb-feedback="nombre:required">El nombre es requerido.</div>
+                              </div>
+                              <!-- Desc input-->
+                              <div class="form-floating mb-3">
+                                  <textarea class="form-control" id="descripcion" name="descripcion" type="text" placeholder="Escribe la descripción aqui..." style="height: 10rem" data-sb-validations="required" ></textarea>
+                                  <label for="descripcion">Escribe la descripción </label>
+                                  <div class="invalid-feedback" data-sb-feedback="descripcion:required">La descripción es requerida.</div>
+                              </div>
+                              <!-- Precio input-->
+                              <div class="form-floating mb-3">
+                                  <input class="form-control" id="precio" name="precio" type="number" placeholder="5000" min="0" data-sb-validations="required" value="0"/>
+                                  <label for="precio">Precio</label>
+                                  <div class="invalid-feedback" data-sb-feedback="precio:required">Precio requerido.</div>
+                              </div>
+                              <!-- Imagen input-->
+                              <div class="form-floating mb-3">
+                                  <input class="form-control" id="imagen" name="imagen" type="text" placeholder="imagen1.jpg" data-sb-validations="required"/>
+                                  <label for="imagen">Nombre de la imagen del producto. (Ejemplo: puno.jpg)</label>
+                                  <div class="invalid-feedback" data-sb-feedback="imagen:required">El nombre de la imagen es requerido.</div>
+                              </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Agregar</button>
+                          </div>
+                          </form>
                         </div>
+                      </div>
                     </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="{{ url_for('static', filename='img/pcuatro.jpg')}}" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">Adidas Fluidstreet</h5>
-                                    <!-- Product price-->
-                                    $1500.00
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Ver producto</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="{{ url_for('static', filename='img/pcinco.jpg')}}" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">Nike Kyrie 8</h5>
-                                    <!-- Product price-->
-                                    $2500.00
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Ver producto</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="{{ url_for('static', filename='img/pseis.jpg')}}" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">STEVE MADDEN Possession</h5>
-                                    <!-- Product price-->
-                                    $3500.00
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Ver producto</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                </div>
-            </div>
-        </section>
-        <!-- Related items section-->
-        <section class="py-5 bg-light">
-            <div class="container px-4 px-lg-5 mt-5">
-                <h2 class="fw-bolder mb-4">Productos relacionados</h2>
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
 
                 </div>
             </div>
         </section>
+
         <footer class="py-5 bg-dark">
             <div class="container"><p class="m-0 text-center text-white">Copyright &copy; SneakersSeekers 2023</p></div>
         </footer>

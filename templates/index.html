@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Sneakers seekers</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css')}}">
+    <link rel="icon" href="{{ url_for('static', filename='img/b.png')}}" type="image/png">
   </head>
 
     <body>
@@ -29,24 +30,9 @@
                           <li class="nav-item">
                             <a class="nav-link" href="{{url_for('marcas')}}">Marcas</a>
                           </li>
-                          <!--<li class="nav-item">
-                            <a class="nav-link" href="#">Sobre nosotros</a>
-                          </li>-->
                           <li class="nav-item">
                             <a class="nav-link" href="{{url_for('contacto')}}">Contacto</a>
                           </li>
-                          <!--
-                          <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item" href="#">Action</a>
-                              <a class="dropdown-item" href="#">Another action</a>
-                              <a class="dropdown-item" href="#">Something else here</a>
-                              <div class="dropdown-divider"></div>
-                              <a class="dropdown-item" href="#">Separated link</a>
-                            </div>
-                          </li>
-                        -->
                         </ul>
                         <form class="d-flex">
                           <input class="form-control me-sm-2" type="search" placeholder="Busca algo">
@@ -60,7 +46,7 @@
         
 
         <div class="container-fluid ">
-            <div id="carouselExampleCaptions" class="carousel slide">
+            <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
                 <div class="carousel-indicators">
                   <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                   <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -108,6 +94,40 @@
             </div>
         </div>
 
+        <div class="container px-4 px-lg-5 my-5">
+          <div class="text-center text-white">
+            <section class="py-5 bg-dark">
+              <div class="container px-4 px-lg-5 mt-5">
+                  <h2 class="fw-bolder mb-4">Lo mejor</h2>
+                  <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center text-black">
+                      {% for muestra in muestras[:3] %}
+                      <div class="col mb-5">
+                          <div class="card h-100">
+                              <!-- Product image-->
+                              <img class="card-img-top" src="{{ url_for('static', filename='img/' + muestra.imagen) }}" alt="..." />
+                              <!-- Product details-->
+                              <div class="card-body p-4">
+                                  <div class="text-center">
+                                      <!-- Product name-->
+                                      <h5 class="fw-bolder">{{ muestra.nombre }}</h5>
+                                      <!-- Product price-->
+                                      ${{ muestra.precio }}
+                                  </div>
+                              </div>
+                              <!-- Product actions-->
+                              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                  <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{{ url_for('producto', id=muestra.id) }}">Ver producto</a></div>
+                              </div>
+                          </div>
+                      </div>
+                      {% endfor %}
+                  </div>
+                  <h2 class="fw-bolder mb-4"><a class="text-white fw-bold" href="{{url_for('productos')}}">Ver más...</a></h2>
+              </div>
+            </section>
+          </div>
+      </div>
+
 
         <div class="container px-4 px-lg-5 my-5 bg-light">
             <p class="lead fw-normal text-50 text-center pb-5">
@@ -139,8 +159,10 @@
 
         <div class="container px-4 px-lg-5 my-5">
             <div class="text-center text-black">
-                <h1 class="display-4 fw-bolder">¡Compra ahora!</h1>                <p class="lead fw-normal text-50 mb-0">Ve nuestros productos en la sección de <a class="link" href="{{url_for('productos')}}">Productos</a></p>
-
+                <h1 class="display-4 fw-bolder">¡Compra ahora!</h1>                
+                <p class="lead fw-normal text-50 mb-0">Ve nuestros productos en la sección de 
+                  <a class="link" href="{{url_for('productos')}}">Productos</a>
+                </p>
             </div>
         </div>
 
